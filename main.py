@@ -149,6 +149,7 @@ t = 821844181995567608861526435749234500883999
 start = time.time()
 
 # n = 4k + 2
+# https://mathoverflow.net/questions/259152/efficient-method-to-write-number-as-a-sum-of-four-squares
 t = 821844181995567608861526435749234500883998
 print("=======================================")
 print(t)
@@ -161,6 +162,21 @@ p = t - a * a - b * b
 r = (p - 1) // 4
 
 x = randrange(1, p)
+
+print("-----")
+print(x)
+print(r)
+
+
+e = 1
+
+while e < 2 * r:
+    x = x * x % p
+    e = e * 2
+
+
+
+
 1/0
 
 
