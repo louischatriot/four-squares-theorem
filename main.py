@@ -29,6 +29,9 @@ def four_squares(n: int) -> Tuple[int, int, int, int]:
     a_max = math.isqrt(n)
 
     for a in range(a_max, -1, -1):
+        if not three_squarable(n - a * a):
+            continue
+
         b_max = math.isqrt(n - a * a)
 
         for b in range(b_max, -1, -1):
@@ -41,6 +44,14 @@ def four_squares(n: int) -> Tuple[int, int, int, int]:
                     return (a, b, c, d)
 
 
+def three_squarable(n):
+    if n == 0:
+        return True
+
+    while n % 4 == 0:
+        n = n / 4
+
+    return (n % 8 != 7)
 
 
 
@@ -51,29 +62,25 @@ t = 821844181995567608861526435749234500883998
 
 
 
-t = 821844181995297608861526435749234500883998
+# Reminder is not three-squarable so calculation takes a very long time if you don't check for this
+t = 821844181995567608861526435749234500883999
+
 
 
 start = time.time()
 
+print("=======================================")
+print(t)
 
 a, b, c, d = four_squares(t)
-# a, b, c, d = four_squares(t)
-# a, b, c, d = four_squares(t)
 
-print(a)
-print(b)
-print(c)
-print(d)
-
-print("tttttttttttttttttt")
-print(t)
 print(a*a + b*b + c*c + d*d)
 
 duration = time.time() - start
 print(f"=====> {duration}")
 
 
+1/0
 
 
 
