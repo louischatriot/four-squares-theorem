@@ -26,24 +26,17 @@ def largest_square_lower_than(n):
 
 
 def four_squares(n: int) -> Tuple[int, int, int, int]:
-    # a_max = int(math.sqrt(n))
-    a_max = int(n ** .5)
+    a_max = math.isqrt(n)
 
     for a in range(a_max, -1, -1):
-        if a * a > n:
-            continue
-
-        b_max = int((n - a * a) ** .5)
+        b_max = math.isqrt(n - a * a)
 
         for b in range(b_max, -1, -1):
-            if b * b > n - a * a:
-                continue
-
-            c_max = int((n - a * a - b * b) ** .5)
+            c_max = math.isqrt(n - a * a - b * b)
 
             for c in range(c_max, -1, -1):
                 sr = n - a * a - b * b - c * c
-                d = int(sr ** .5)
+                d = math.isqrt(sr)
                 if sr == d * d:
                     return (a, b, c, d)
 
@@ -53,18 +46,20 @@ def four_squares(n: int) -> Tuple[int, int, int, int]:
 
 
 
-    
-t = 821844181995577608861826435749234500883999
+# 1.6s
+t = 821844181995567608861526435749234500883998
 
-print(int(t ** .5))
-1/0
+
+
+t = 821844181995297608861526435749234500883998
+
 
 start = time.time()
 
 
 a, b, c, d = four_squares(t)
-a, b, c, d = four_squares(t)
-a, b, c, d = four_squares(t)
+# a, b, c, d = four_squares(t)
+# a, b, c, d = four_squares(t)
 
 print(a)
 print(b)
