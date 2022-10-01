@@ -183,22 +183,25 @@ def four_square_4n_2(t):
     m = 1
     p = 5
 
+    a_max = math.isqrt(t)
+
+    for a in range(a_max, -1, -1):
+        if not three_squarable(t - a * a):
+            continue
+        else:
+            break
+
+    # The 1000 is arbitrary here but we want to avoid special case where b cannot be found because t - a * a is too small
+    if t - a * a < 1000:
+        return four_square_brute_force(t)
+
+    b = math.isqrt(t - a * a)   # b_max + 1
+
     while m * m % p != p - 1:
-        a_max = math.isqrt(t)
-
-        for a in range(a_max, -1, -1):
-            if not three_squarable(t - a * a):
-                continue
-            else:
-                break
-
-        # The 1000 is arbitrary here but we want to avoid special case where b cannot be found because t - a * a is too small
-        if t - a * a < 1000:
-            return four_square_brute_force(t)
-
         # Should actually have one odd and one even and test for it here but seems to work downstreams anyway
         # a = randrange(1, math.isqrt(t))
-        b = randrange(1, math.isqrt(t - a * a))
+        b -= 1
+        # b = randrange(1, math.isqrt(t - a * a))
         p = t - a * a - b * b
         r = (p - 1) // 4
         x = randrange(1, p)
