@@ -151,42 +151,97 @@ start = time.time()
 # n = 4k + 2
 # https://mathoverflow.net/questions/259152/efficient-method-to-write-number-as-a-sum-of-four-squares
 t = 821844181995567608861526435749234500883998
+
+
+t = 4 * 2**1000 + 14
+
 print("=======================================")
 print(t)
 
-a = randrange(1, math.isqrt(t))
-b = randrange(1, math.isqrt(t - a * a))
 
-p = t - a * a - b * b
+m = 1
+p = 5
 
-r = (p - 1) // 4
+while m * m % p != p - 1:
+    a_max = math.isqrt(t)
 
-x = randrange(1, p)
+    for a in range(a_max, -1, -1):
+        if not three_squarable(t - a * a):
+            continue
+        else:
+            break
 
-print("-----")
-print(x)
-print(r)
+    # print("eeeeeeeeeeeeeee")
+    # print(t - a * a)
 
+    # Should actually have one odd and one even and test for it here but seems to work downstreams anyway
+    # a = randrange(1, math.isqrt(t))
+    b = randrange(1, math.isqrt(t - a * a))
 
-e = 1
+    p = t - a * a - b * b
 
-while e < 2 * r:
-    x = x * x % p
-    e = e * 2
+    r = (p - 1) // 4
 
+    x = randrange(1, p)
 
-
-
-1/0
-
-
-
-
-
-# Should use fast exponentiation
-m = (x ** 2) ** r
+    # print("-----")
+    # print(x)
+    # print(r)
 
 
+    e = r
+    y = 1
+
+    while e > 1:
+        if e % 2 == 0:
+            x = x * x % p
+            e = e // 2
+        else:
+            y = y * x % p
+            x = x * x % p
+            e = (e - 1) // 2
+
+    x = x * y % p
+
+    m = x
+
+
+print("------------------------")
+print(m)
+print(p)
+print(p - 1 - (m * m % p))
+
+
+
+
+# no = (m * m + 1) // p   # Exact division by p
+
+# print(no)
+# print(m * m + 1 - p * no)
+
+c = p
+d = m
+r = p
+while c > math.sqrt(p):
+    r = c - (c // d) * d
+    c = d
+    d = r
+
+print("EUCLIDE DONE")
+print(p - c * c - d * d)
+
+
+
+print("RESULT")
+print(t - a ** 2 - b ** 2 - c ** 2 - d ** 2)
+
+
+# print(m)
+
+
+# print("%%%%%%%")
+# print(m * m % p)
+# print(p - 1)
 
 
 
